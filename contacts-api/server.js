@@ -28,15 +28,28 @@ app.get('/', (req, res) => {
 app.use('/contacts', contactRoutes);
 
 // Database and server start
+// mongodb.initDb((err) => {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         app.listen(PORT, () => {
+//             console.log(`Database is connected and Server is running on port ${PORT}`);
+//         });
+//     }
+// });
+
 mongodb.initDb((err) => {
-    if (err) {
-        console.log(err);
-    } else {
-        app.listen(PORT, () => {
-            console.log(`Database is connected and Server is running on port ${PORT}`);
-        });
-    }
+  if (err) {
+    console.error("❌ Database connection failed:", err);
+    console.error("Current MONGODB_URI:", process.env.MONGODB_URI ? "✅ Defined" : "❌ Undefined");
+    process.exit(1);
+  } else {
+    app.listen(PORT, () => {
+      console.log(`✅ Database connected & server running on port ${PORT}`);
+    });
+  }
 });
+
 
 
 
