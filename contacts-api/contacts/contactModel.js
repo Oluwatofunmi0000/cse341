@@ -26,7 +26,7 @@ const newContact = {
 
 createContact(newContact)
   .then(result => console.log('Contact inserted:', result.insertedId))
-  .catch(err => console.error(err));
+  .catch(err => console.error(err));..
 
 
 
