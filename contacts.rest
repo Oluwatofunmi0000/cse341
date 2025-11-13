@@ -3,8 +3,8 @@
 ### Local testing
 # @baseUrl = http://localhost:3000
 
-### Render testing (replace with your actual Render URL)
-@baseUrl = https://your-render-url.onrender.com
+### Render testing
+@baseUrl = https://project1-pig7.onrender.com
 
 ### Get all contacts
 GET {{baseUrl}}/contacts
