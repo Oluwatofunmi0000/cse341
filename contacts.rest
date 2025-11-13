@@ -1,8 +1,16 @@
+### Test Contacts API
+
+### Local testing (use http://localhost:3000)
+### Render testing (replace with your Render URL)
+@baseUrl = http://localhost:3000
+
 ### Get all contacts
-GET http://localhost:3000/contacts
+GET {{baseUrl}}/contacts
 
-### Get one contact by id
-GET http://localhost:3000/contacts/000000000000000000000000
+###
 
-### Health
-GET http://localhost:3000/health
+### Get contact by ID
+### Replace the ID below with an actual contact ID from your database
+GET {{baseUrl}}/contacts/68bcacd107949cbf58c86791
+
+###

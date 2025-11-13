@@ -1,28 +1,39 @@
-const { Router } = require('express');
+const express = require('express');
+const router = express.Router();
 const { ObjectId } = require('mongodb');
-const { getDb } = require('../db/mongo');
+const { getDatabase } = require('../db/connect');
 
-const router = Router();
-
-router.get('/', async (req, res, next) => {
+// GET all contacts
+router.get('/', async (req, res) => {
   try {
-    const contacts = await getDb().collection('contacts').find({}).toArray();
-    res.json(contacts);
-  } catch (err) {
-    next(err);
+    const db = getDatabase();
+    const contacts = await db.collection('contacts').find().toArray();
+    res.status(200).json(contacts);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching contacts', error: error.message });
   }
 });
 
-router.get('/:id', async (req, res, next) => {
+// GET single contact by ID
+router.get('/:id', async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!ObjectId.isValid(id)) return res.status(400).json({ error: 'Invalid id' });
-
-    const contact = await getDb().collection('contacts').findOne({ _id: new ObjectId(id) });
-    if (!contact) return res.status(404).json({ error: 'Not found' });
-    res.json(contact);
-  } catch (err) {
-    next(err);
+    const contactId = req.params.id;
+    
+    // Validate if the ID is a valid MongoDB ObjectId
+    if (!ObjectId.isValid(contactId)) {
+      return res.status(400).json({ message: 'Invalid contact ID' });
+    }
+    
+    const db = getDatabase();
+    const contact = await db.collection('contacts').findOne({ _id: new ObjectId(contactId) });
+    
+    if (!contact) {
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+    
+    res.status(200).json(contact);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching contact', error: error.message });
   }
 });
 
