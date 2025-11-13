@@ -36,4 +36,4 @@ mongodb.initDb((err) => {
             console.log(`Database is connected and Server is running on port ${PORT}`);
         });
     }
-});...
+});

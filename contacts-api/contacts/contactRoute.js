@@ -8,7 +8,7 @@ router.get('/:id', contactsController.getContactById);
 router.post('/', contactsController.newContact);
 router.put('/:id', contactsController.updateContact);
 router.delete('/:id', contactsController.deleteContact);
-module.exports = router;..
+module.exports = router;
 
 /**
  * POST comes into server.js => /contacts => contatctRoute.js => contacts.js it will run newContact function
