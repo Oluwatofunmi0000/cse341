@@ -1,8 +1,10 @@
 ### Test Contacts API
 
-### Local testing (use http://localhost:3000)
-### Render testing (replace with your Render URL)
-@baseUrl = http://localhost:3000
+### Local testing
+# @baseUrl = http://localhost:3000
+
+### Render testing (replace with your actual Render URL)
+@baseUrl = https://your-render-url.onrender.com
 
 ### Get all contacts
 GET {{baseUrl}}/contacts
