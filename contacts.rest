@@ -1,0 +1,57 @@
+### Test Contacts API
+
+### Local testing
+# @baseUrl = http://localhost:3000
+
+### Render testing
+@baseUrl = https://project1-pig7.onrender.com
+
+@contactId = 68bcacd107949cbf58c86791
+
+### Get all contacts
+GET {{baseUrl}}/contacts
+
+###
+
+### Get contact by ID
+### Replace the ID below with an actual contact ID from your database
+GET {{baseUrl}}/contacts/{{contactId}}
+
+###
+
+### Create a new contact (POST)
+POST {{baseUrl}}/contacts
+Content-Type: application/json
+
+{
+	"firstName": "Test",
+	"lastName": "User",
+	"email": "test.user@example.com",
+	"favoriteColor": "Teal",
+	"birthday": "2000-01-01"
+}
+
+###
+
+### Update a contact by ID (PUT)
+PUT {{baseUrl}}/contacts/{{contactId}}
+Content-Type: application/json
+
+{
+	"firstName": "Updated",
+	"lastName": "User",
+	"email": "updated.user@example.com",
+	"favoriteColor": "Orange",
+	"birthday": "1999-12-31"
+}
+
+###
+
+### Delete a contact by ID (DELETE)
+DELETE {{baseUrl}}/contacts/{{contactId}}
+
+###
+### Swagger UI (open in browser)
+### {{baseUrl}}/api-docs
+
+###

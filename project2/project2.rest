@@ -1,0 +1,74 @@
+### Project 2 API Requests
+@base = http://localhost:3001
+
+### Authors
+GET {{base}}/authors
+
+### Create Author
+POST {{base}}/authors
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Austen",
+  "email": "jane.austen@literature.com",
+  "country": "England",
+  "birthDate": "1775-12-16"
+}
+
+### Get Single Author (replace :id)
+GET {{base}}/authors/:id
+
+### Update Author (replace :id)
+PUT {{base}}/authors/:id
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Austen",
+  "email": "jane.austen@literature.org",
+  "country": "United Kingdom",
+  "birthDate": "1775-12-16"
+}
+
+### Delete Author (replace :id)
+DELETE {{base}}/authors/:id
+
+### Books
+GET {{base}}/books
+
+### Create Book (replace authorId after creating an author)
+POST {{base}}/books
+Content-Type: application/json
+
+{
+  "title": "Pride and Prejudice",
+  "isbn": "978-0-14-143951-8",
+  "authorId": "REPLACE_AUTHOR_ID",
+  "publishedYear": 1813,
+  "genres": ["Romance", "Classic"],
+  "pages": 432,
+  "language": "English",
+  "inPrint": true
+}
+
+### Get Single Book (replace :id)
+GET {{base}}/books/:id
+
+### Update Book (replace :id and authorId)
+PUT {{base}}/books/:id
+Content-Type: application/json
+
+{
+  "title": "Pride and Prejudice (Revised Edition)",
+  "isbn": "978-0-14-143951-8",
+  "authorId": "REPLACE_AUTHOR_ID",
+  "publishedYear": 1813,
+  "genres": ["Romance", "Classic", "Fiction"],
+  "pages": 450,
+  "language": "English",
+  "inPrint": true
+}
+
+### Delete Book (replace :id)
+DELETE {{base}}/books/:id
