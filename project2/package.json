@@ -12,6 +12,10 @@
     "dotenv": "^16.3.1",
     "joi": "^17.9.2",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "express-session": "^1.17.3",
+    "passport": "^0.6.0",
+    "passport-google-oauth20": "^2.0.0",
+    "connect-mongo": "^5.0.0"
   }
 }

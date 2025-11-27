@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/booksController');
+const { isAuthenticated } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -43,8 +44,10 @@ router.get('/:id', controller.getBook);
  * @swagger
  * /books:
  *   post:
- *     summary: Create a new book
+ *     summary: Create a new book (requires authentication)
  *     tags: [Books]
+ *     security:
+ *       - googleAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -63,15 +66,18 @@ router.get('/:id', controller.getBook);
  *     responses:
  *       201: { description: Created }
  *       400: { description: Validation error }
+ *       401: { description: Unauthorized }
  */
-router.post('/', controller.createBook);
+router.post('/', isAuthenticated, controller.createBook);
 
 /**
  * @swagger
  * /books/{id}:
  *   put:
- *     summary: Update a book
+ *     summary: Update a book (requires authentication)
  *     tags: [Books]
+ *     security:
+ *       - googleAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -86,16 +92,19 @@ router.post('/', controller.createBook);
  *     responses:
  *       204: { description: Updated }
  *       400: { description: Validation/ID error }
+ *       401: { description: Unauthorized }
  *       404: { description: Not found }
  */
-router.put('/:id', controller.updateBook);
+router.put('/:id', isAuthenticated, controller.updateBook);
 
 /**
  * @swagger
  * /books/{id}:
  *   delete:
- *     summary: Delete a book
+ *     summary: Delete a book (requires authentication)
  *     tags: [Books]
+ *     security:
+ *       - googleAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -104,8 +113,9 @@ router.put('/:id', controller.updateBook);
  *     responses:
  *       200: { description: Deleted }
  *       400: { description: Invalid ID }
+ *       401: { description: Unauthorized }
  *       404: { description: Not found }
  */
-router.delete('/:id', controller.deleteBook);
+router.delete('/:id', isAuthenticated, controller.deleteBook);
 
 module.exports = router;

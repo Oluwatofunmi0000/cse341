@@ -7,12 +7,29 @@ const options = {
     info: {
       title: 'Project 2 API',
       version: '1.0.0',
-      description: 'CRUD API for Authors and Books'
+      description: 'CRUD API for Authors and Books with OAuth Authentication'
     },
     servers: [
-      { url: 'http://localhost:3001', description: 'Local dev server' }
+      { url: 'http://localhost:3001', description: 'Local dev server' },
+      { url: 'https://your-render-url.onrender.com', description: 'Production server' }
     ],
     components: {
+      securitySchemes: {
+        googleAuth: {
+          type: 'oauth2',
+          description: 'Google OAuth 2.0 authentication',
+          flows: {
+            authorizationCode: {
+              authorizationUrl: '/auth/google',
+              tokenUrl: '/auth/google/callback',
+              scopes: {
+                'profile': 'Access user profile',
+                'email': 'Access user email'
+              }
+            }
+          }
+        }
+      },
       schemas: {
         Author: {
           type: 'object',
@@ -57,6 +74,7 @@ const options = {
     }
   },
   apis: [
+    './routes/auth.js',
     './routes/authors.js',
     './routes/books.js'
   ]

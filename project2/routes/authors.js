@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/authorsController');
+const { isAuthenticated } = require('../middleware/auth');
 
 /**
  * @swagger
@@ -43,8 +44,10 @@ router.get('/:id', controller.getAuthor);
  * @swagger
  * /authors:
  *   post:
- *     summary: Create a new author
+ *     summary: Create a new author (requires authentication)
  *     tags: [Authors]
+ *     security:
+ *       - googleAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -60,15 +63,18 @@ router.get('/:id', controller.getAuthor);
  *     responses:
  *       201: { description: Created }
  *       400: { description: Validation error }
+ *       401: { description: Unauthorized }
  */
-router.post('/', controller.createAuthor);
+router.post('/', isAuthenticated, controller.createAuthor);
 
 /**
  * @swagger
  * /authors/{id}:
  *   put:
- *     summary: Update an author
+ *     summary: Update an author (requires authentication)
  *     tags: [Authors]
+ *     security:
+ *       - googleAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -83,16 +89,19 @@ router.post('/', controller.createAuthor);
  *     responses:
  *       204: { description: Updated }
  *       400: { description: Validation/ID error }
+ *       401: { description: Unauthorized }
  *       404: { description: Not found }
  */
-router.put('/:id', controller.updateAuthor);
+router.put('/:id', isAuthenticated, controller.updateAuthor);
 
 /**
  * @swagger
  * /authors/{id}:
  *   delete:
- *     summary: Delete an author
+ *     summary: Delete an author (requires authentication)
  *     tags: [Authors]
+ *     security:
+ *       - googleAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -101,8 +110,9 @@ router.put('/:id', controller.updateAuthor);
  *     responses:
  *       200: { description: Deleted }
  *       400: { description: Invalid ID }
+ *       401: { description: Unauthorized }
  *       404: { description: Not found }
  */
-router.delete('/:id', controller.deleteAuthor);
+router.delete('/:id', isAuthenticated, controller.deleteAuthor);
 
 module.exports = router;
