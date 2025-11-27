@@ -12,6 +12,13 @@ const { setupSwagger } = require('./swagger');
 const app = express();
 app.use(express.json());
 
+// Verify MongoDB URI is available
+const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI;
+if (!mongoUri) {
+  console.error('ERROR: MONGODB_URI or MONGO_URI environment variable is required');
+  process.exit(1);
+}
+
 // Session configuration
 app.use(
   session({
@@ -19,7 +26,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI || process.env.MONGO_URI,
+      mongoUrl: mongoUri,
       dbName: process.env.DB_NAME || 'project2db'
     }),
     cookie: {
