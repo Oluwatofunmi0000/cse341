@@ -1,0 +1,217 @@
+@localUrl = http://localhost:3000
+@renderUrl = https://your-render-url.onrender.com
+
+### Health Check
+GET {{localUrl}}
+
+### ============ USERS ============
+
+### Get all users
+GET {{localUrl}}/users
+
+### Get user by ID (replace with actual ID)
+GET {{localUrl}}/users/507f1f77bcf86cd799439011
+
+### Create new user
+POST {{localUrl}}/users
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "displayName": "John Doe",
+  "dietaryPreferences": ["vegetarian", "gluten-free"]
+}
+
+### Create another user
+POST {{localUrl}}/users
+Content-Type: application/json
+
+{
+  "email": "jane.smith@example.com",
+  "displayName": "Jane Smith",
+  "googleId": "123456789",
+  "dietaryPreferences": ["vegan"]
+}
+
+### Update user (replace ID)
+PUT {{localUrl}}/users/507f1f77bcf86cd799439011
+Content-Type: application/json
+
+{
+  "email": "john.doe.updated@example.com",
+  "displayName": "John Doe Updated",
+  "dietaryPreferences": ["vegetarian", "dairy-free"]
+}
+
+### Delete user (replace ID)
+DELETE {{localUrl}}/users/507f1f77bcf86cd799439011
+
+### ============ RECIPES ============
+
+### Get all recipes
+GET {{localUrl}}/recipes
+
+### Get recipe by ID (replace with actual ID)
+GET {{localUrl}}/recipes/507f1f77bcf86cd799439011
+
+### Create new recipe (replace authorId with actual user ID)
+POST {{localUrl}}/recipes
+Content-Type: application/json
+
+{
+  "title": "Classic Margherita Pizza",
+  "description": "A traditional Italian pizza with fresh tomatoes, mozzarella, and basil",
+  "ingredients": [
+    "2 cups all-purpose flour",
+    "1 cup warm water",
+    "1 tsp active dry yeast",
+    "1 tsp salt",
+    "200g fresh mozzarella",
+    "3 ripe tomatoes",
+    "Fresh basil leaves",
+    "2 tbsp olive oil"
+  ],
+  "instructions": [
+    "Mix flour, water, yeast, and salt to form dough",
+    "Knead dough for 10 minutes until smooth",
+    "Let dough rise for 1 hour in a warm place",
+    "Roll out dough into a circle",
+    "Spread tomatoes and add mozzarella",
+    "Bake at 450°F for 12-15 minutes",
+    "Top with fresh basil and olive oil"
+  ],
+  "prepTime": 20,
+  "cookTime": 15,
+  "servingSize": 4,
+  "difficulty": "Medium",
+  "cuisine": "Italian",
+  "tags": ["pizza", "vegetarian", "dinner", "italian"],
+  "authorId": "507f1f77bcf86cd799439011"
+}
+
+### Create another recipe
+POST {{localUrl}}/recipes
+Content-Type: application/json
+
+{
+  "title": "Quick Veggie Stir Fry",
+  "description": "A healthy and colorful vegetable stir fry ready in under 20 minutes",
+  "ingredients": [
+    "2 cups mixed vegetables (bell peppers, broccoli, carrots)",
+    "2 cloves garlic, minced",
+    "1 tbsp soy sauce",
+    "1 tbsp sesame oil",
+    "1 tsp ginger, grated",
+    "Cooked rice for serving"
+  ],
+  "instructions": [
+    "Heat sesame oil in a large wok or pan",
+    "Add garlic and ginger, sauté for 30 seconds",
+    "Add vegetables and stir fry for 5-7 minutes",
+    "Add soy sauce and toss to coat",
+    "Serve hot over rice"
+  ],
+  "prepTime": 10,
+  "cookTime": 10,
+  "servingSize": 2,
+  "difficulty": "Easy",
+  "cuisine": "Asian",
+  "tags": ["stir-fry", "vegetarian", "quick", "healthy"],
+  "authorId": "507f1f77bcf86cd799439011"
+}
+
+### Update recipe (replace IDs)
+PUT {{localUrl}}/recipes/507f1f77bcf86cd799439011
+Content-Type: application/json
+
+{
+  "title": "Classic Margherita Pizza - Updated",
+  "description": "An improved traditional Italian pizza with fresh tomatoes, mozzarella, and basil",
+  "ingredients": [
+    "2.5 cups all-purpose flour",
+    "1 cup warm water",
+    "1 tsp active dry yeast",
+    "1 tsp salt",
+    "250g fresh buffalo mozzarella",
+    "4 ripe tomatoes",
+    "Fresh basil leaves",
+    "3 tbsp extra virgin olive oil"
+  ],
+  "instructions": [
+    "Mix flour, water, yeast, and salt to form dough",
+    "Knead dough for 10 minutes until smooth and elastic",
+    "Let dough rise for 1 hour in a warm place covered with a towel",
+    "Preheat oven to 450°F with pizza stone inside",
+    "Roll out dough into a circle on floured surface",
+    "Spread crushed tomatoes evenly and add torn mozzarella",
+    "Bake on hot pizza stone for 12-15 minutes until crust is golden",
+    "Top with fresh basil and drizzle olive oil before serving"
+  ],
+  "prepTime": 25,
+  "cookTime": 15,
+  "servingSize": 4,
+  "difficulty": "Medium",
+  "cuisine": "Italian",
+  "tags": ["pizza", "vegetarian", "dinner", "italian", "authentic"],
+  "authorId": "507f1f77bcf86cd799439011"
+}
+
+### Delete recipe (replace ID)
+DELETE {{localUrl}}/recipes/507f1f77bcf86cd799439011
+
+### ============ VALIDATION TESTS ============
+
+### Test: Invalid email format
+POST {{localUrl}}/users
+Content-Type: application/json
+
+{
+  "email": "invalid-email",
+  "displayName": "Test User"
+}
+
+### Test: Display name too short
+POST {{localUrl}}/users
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "displayName": "A"
+}
+
+### Test: Missing required fields
+POST {{localUrl}}/recipes
+Content-Type: application/json
+
+{
+  "title": "Incomplete Recipe"
+}
+
+### Test: Invalid difficulty
+POST {{localUrl}}/recipes
+Content-Type: application/json
+
+{
+  "title": "Test Recipe",
+  "description": "Testing difficulty validation",
+  "ingredients": ["test ingredient"],
+  "instructions": ["test instruction"],
+  "prepTime": 10,
+  "cookTime": 20,
+  "servingSize": 2,
+  "difficulty": "VeryHard",
+  "cuisine": "Test",
+  "authorId": "507f1f77bcf86cd799439011"
+}
+
+### Test: Invalid ObjectId format
+GET {{localUrl}}/users/invalid-id
+
+### Test: Duplicate email
+POST {{localUrl}}/users
+Content-Type: application/json
+
+{
+  "email": "john.doe@example.com",
+  "displayName": "Another John"
+}
