@@ -1,5 +1,5 @@
 @localUrl = http://localhost:3000
-@renderUrl = https://your-render-url.onrender.com
+@renderUrl = https://cse341-final-project-5g06.onrender.com
 
 ### Health Check
 GET {{localUrl}}

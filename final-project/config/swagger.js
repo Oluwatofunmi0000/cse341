@@ -18,7 +18,7 @@ const options = {
         description: 'Development server'
       },
       {
-        url: 'https://project1-pig7.onrender.com',
+        url: 'https://cse341-final-project-5g06.onrender.com',
         description: 'Production server'
       }
     ],
