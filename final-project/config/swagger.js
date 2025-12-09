@@ -18,11 +18,27 @@ const options = {
         description: 'Development server'
       },
       {
-        url: 'https://your-render-url.onrender.com',
+        url: 'https://project1-pig7.onrender.com',
         description: 'Production server'
       }
     ],
     components: {
+      securitySchemes: {
+        googleAuth: {
+          type: 'oauth2',
+          description: 'Google OAuth 2.0 authentication',
+          flows: {
+            authorizationCode: {
+              authorizationUrl: '/auth/google',
+              tokenUrl: '/auth/google/callback',
+              scopes: {
+                profile: 'Access user profile',
+                email: 'Access user email'
+              }
+            }
+          }
+        }
+      },
       schemas: {
         User: {
           type: 'object',
@@ -188,6 +204,115 @@ const options = {
               type: 'string',
               format: 'date-time',
               description: 'Last update timestamp'
+            }
+          }
+        },
+        MealPlan: {
+          type: 'object',
+          required: ['userId', 'name', 'startDate', 'endDate', 'meals'],
+          properties: {
+            _id: {
+              type: 'string',
+              example: '507f1f77bcf86cd799439011'
+            },
+            userId: {
+              type: 'string',
+              example: '507f1f77bcf86cd799439011'
+            },
+            name: {
+              type: 'string',
+              example: 'Weekly Meal Plan'
+            },
+            startDate: {
+              type: 'string',
+              format: 'date'
+            },
+            endDate: {
+              type: 'string',
+              format: 'date'
+            },
+            meals: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  day: {
+                    type: 'string',
+                    enum: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+                  },
+                  mealType: {
+                    type: 'string',
+                    enum: ['Breakfast', 'Lunch', 'Dinner', 'Snack']
+                  },
+                  recipeId: {
+                    type: 'string'
+                  }
+                }
+              }
+            },
+            notes: {
+              type: 'string'
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time'
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time'
+            }
+          }
+        },
+        GroceryList: {
+          type: 'object',
+          required: ['userId', 'name', 'items'],
+          properties: {
+            _id: {
+              type: 'string',
+              example: '507f1f77bcf86cd799439011'
+            },
+            userId: {
+              type: 'string',
+              example: '507f1f77bcf86cd799439011'
+            },
+            mealPlanId: {
+              type: 'string',
+              example: '507f1f77bcf86cd799439012'
+            },
+            name: {
+              type: 'string',
+              example: 'Weekly Shopping List'
+            },
+            items: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  name: {
+                    type: 'string',
+                    example: 'Milk'
+                  },
+                  quantity: {
+                    type: 'string',
+                    example: '2 gallons'
+                  },
+                  category: {
+                    type: 'string',
+                    enum: ['Produce', 'Dairy', 'Meat', 'Bakery', 'Pantry', 'Frozen', 'Other']
+                  },
+                  checked: {
+                    type: 'boolean'
+                  }
+                }
+              }
+            },
+            createdAt: {
+              type: 'string',
+              format: 'date-time'
+            },
+            updatedAt: {
+              type: 'string',
+              format: 'date-time'
             }
           }
         }
