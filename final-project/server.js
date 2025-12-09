@@ -12,6 +12,9 @@ require('./config/passport');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Allow Render proxy to set secure cookies
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -36,7 +39,8 @@ app.use(
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production'
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax'
     }
   })
 );
